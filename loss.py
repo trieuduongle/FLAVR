@@ -313,7 +313,7 @@ class Loss(nn.modules.loss._Loss):
             self.loss_module = nn.DataParallel(self.loss_module)
 
 
-    def forward(self, sr, hr, fake_imgs=None, extra_vars):
+    def forward(self, sr, hr, fake_imgs=None, extra_vars=None):
         loss = 0
         losses = {}
         for i, l in enumerate(self.loss):
