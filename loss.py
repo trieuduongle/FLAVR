@@ -175,11 +175,13 @@ class Adversarial(nn.Module):
         self.scheduler = optim.lr_scheduler.ReduceLROnPlateau(
             self.optimizer, mode='min', factor=0.5, patience=3, verbose=True)
 
-    def forward(self, fake, real, fake_input0=None, fake_input1=None, fake_input_mean=None):
+    def forward(self, fake, real, fake_input0=None, fake_input1=None, fake_input_mean=None, extra_vars='not defined'):
         # def forward(self, fake, real):
         print('calling')
         print(list(fake.size()))
         print(list(real.size()))
+        print('extra_vars')
+        print(extra_vars)
         fake_detach = fake.detach()
         if fake_input0 is not None:
             fake0, fake1 = fake_input0.detach(), fake_input1.detach()
@@ -311,7 +313,7 @@ class Loss(nn.modules.loss._Loss):
             self.loss_module = nn.DataParallel(self.loss_module)
 
 
-    def forward(self, sr, hr, fake_imgs=None):
+    def forward(self, sr, hr, fake_imgs=None, extra_vars):
         loss = 0
         losses = {}
         for i, l in enumerate(self.loss):
@@ -319,7 +321,7 @@ class Loss(nn.modules.loss._Loss):
                 if l['type'] == 'GAN':
                     if fake_imgs is None:
                         fake_imgs = [None, None, None]
-                    _loss = l['function'](sr, hr, fake_imgs[0], fake_imgs[1], fake_imgs[2])
+                    _loss = l['function'](sr, hr, fake_imgs[0], fake_imgs[1], fake_imgs[2], extra_vars)
                 else:
                     _loss = l['function'](sr, hr)
                 effective_loss = l['weight'] * _loss

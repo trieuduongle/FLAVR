@@ -85,14 +85,19 @@ def train(args, epoch):
         images = [img_.cuda() for img_ in images]
         gt = [gt_.cuda() for gt_ in gt_image]
 
+        print('images')
+        print(np.shape(images))
+        print(np.shape(gt))
         # Forward
         optimizer.zero_grad()
         out = model(images)
         
         out = torch.cat(out)
         gt = torch.cat(gt)
+        print(np.shape(images))
+        print(np.shape(gt))
 
-        loss, loss_specific = criterion(out, gt)
+        loss, loss_specific = criterion(out, gt,None, 'hello')
         
         # Save loss values
         for k, v in losses.items():
