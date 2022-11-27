@@ -86,16 +86,16 @@ def train(args, epoch):
         gt = [gt_.cuda() for gt_ in gt_image]
 
         print('images')
-        print(images.size())
-        print(np.shape(gt))
+        print(np.shape(images.detach().cpu().numpy()))
+        print(np.shape(gt.detach().cpu().numpy()))
         # Forward
         optimizer.zero_grad()
         out = model(images)
         
         out = torch.cat(out)
         gt = torch.cat(gt)
-        print(np.shape(images))
-        print(np.shape(gt))
+        print(np.shape(images.detach().cpu().numpy()))
+        print(np.shape(gt.detach().cpu().numpy()))
 
         loss, loss_specific = criterion(out, gt,None, 'hello')
         
