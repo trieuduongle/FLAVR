@@ -178,6 +178,8 @@ class Adversarial(nn.Module):
     def forward(self, fake, real, fake_input0=None, fake_input1=None, fake_input_mean=None):
         # def forward(self, fake, real):
         print('calling')
+        print(list(fake.size()))
+        print(list(real.size()))
         fake_detach = fake.detach()
         if fake_input0 is not None:
             fake0, fake1 = fake_input0.detach(), fake_input1.detach()
