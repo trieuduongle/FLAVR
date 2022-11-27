@@ -86,7 +86,7 @@ def train(args, epoch):
         gt = [gt_.cuda() for gt_ in gt_image]
 
         print('images')
-        print(np.shape(images))
+        print(images.size())
         print(np.shape(gt))
         # Forward
         optimizer.zero_grad()
