@@ -23,6 +23,7 @@ model_arg.add_argument('--joinType' , choices=["concat" , "add" , "none"], defau
 model_arg.add_argument('--upmode' , choices=["transpose","upsample"], type=str, default="transpose")
 model_arg.add_argument('n_outputs' , type=int, default=1,
                         help="For Kx FLAVR, use n_outputs k-1")
+model_arg.add_argument('--patch_size', type=int, default=256)
 
 # Training / test parameters
 learn_arg = add_argument_group('Learning')
