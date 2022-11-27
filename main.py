@@ -81,13 +81,14 @@ def train(args, epoch):
     t = time.time()
     for i, (images, gt_image) in enumerate(train_loader):
 
+        print('images')
+        print(images)
+        print(np.shape(images))
+        print(np.shape(gt_image))
         # Build input batch
         images = [img_.cuda() for img_ in images]
         gt = [gt_.cuda() for gt_ in gt_image]
-
-        print('images')
-        print(np.shape(images.detach().cpu().numpy()))
-        print(np.shape(gt.detach().cpu().numpy()))
+        
         # Forward
         optimizer.zero_grad()
         out = model(images)
